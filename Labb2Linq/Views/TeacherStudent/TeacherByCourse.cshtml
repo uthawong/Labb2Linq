@@ -4,33 +4,25 @@
     ViewData["Title"] = "TeacherByCourse";
 }
 
-<h1>Index</h1>
+<h1>Teacher by Course</h1>
 
 <table class="table">
     <thead>
         <tr>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.Course)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Teacher)
-            </th>
-            <th></th>
+            <th>Course</th>
+            <th>Teacher</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var courseGroup in Model.GroupBy(e => e.Course))
         {
             <tr>
-               
                 <td>
-                    @Html.DisplayFor(modelItem => item.Course.CourseName)
+                    @Html.DisplayFor(modelItem => courseGroup.Key.CourseName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Teacher.TeacherName)
+                    @Html.DisplayFor(modelItem => courseGroup.First().Teacher.TeacherName)
                 </td>
-                
             </tr>
         }
     </tbody>

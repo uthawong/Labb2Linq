@@ -1,6 +1,6 @@
 ﻿using Labb2Linq.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 
 namespace Labb2Linq.Controllers
 {
@@ -21,15 +21,32 @@ namespace Labb2Linq.Controllers
 
         public async Task<IActionResult> TeacherByCourse()
         {
-            var enrollment = _context.Enrollments.Include(s => s.Teacher);
+            var enrollment = _context.Enrollments
+                .Include(e => e.Teacher)
+                .Include(e => e.Course);
             return View(await enrollment.ToListAsync());
+
+            //var enrollment = _context.Enrollments
+            //.Include(s => s.Teacher)
+            //.Include(s => s.Course)
+            //.ToListAsync();
+
+            //return View(enrollment);
+
         }
-
-
         public async Task<IActionResult> StudentByCourse()
         {
-            var enrollment = _context.Enrollments.Include(s => s.Course);
+            var enrollment = _context.Enrollments
+                .Include(s => s.Student)
+                .Include(s => s.Course);
             return View(await enrollment.ToListAsync());
         }
+
+
+        //public async Task<IActionResult> StudentByCourse()
+        //{
+        //    var enrollment = _context.Enrollments.Include(s => s.Course);
+        //    return View(await enrollment.ToListAsync());
+        //}
     }
 }
